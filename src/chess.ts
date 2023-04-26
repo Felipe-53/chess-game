@@ -67,8 +67,17 @@ export class Chess {
 
 export class Board {
   private board: Map<string, Piece>;
-  constructor() {
-    this.board = new Map();
+
+  constructor(init?: [Position, Piece][]) {
+    if (init) {
+      this.board = new Map(
+        init.map((keyValue) => {
+          return [keyValue[0].toString(), keyValue[1]];
+        })
+      );
+    } else {
+      this.board = new Map();
+    }
   }
 
   get(element: Position) {

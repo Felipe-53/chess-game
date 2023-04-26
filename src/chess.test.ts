@@ -20,8 +20,12 @@ test("can get, retrieve and delete from Board", () => {
 test("Can instantiate a chess game with given initial state", () => {
   const board = new Board();
   board.set([0, 0], new Tower("white"));
+
   let chess = new Chess(board);
-  expect(chess).toBeTruthy();
+
+  expect(chess.getStates()[0]).toEqual(
+    new Board([[[0, 0], new Tower("white")]])
+  );
 });
 
 test("Can move a tower on an empty board", () => {
@@ -32,8 +36,7 @@ test("Can move a tower on an empty board", () => {
 
   chess.move([0, 0], [0, 7]);
 
-  let afterBoard = new Board();
-  afterBoard.set([7, 7], new Tower("white"));
-
-  console.log(chess.getStates());
+  expect(chess.getStates()[1]).toEqual(
+    new Board([[[0, 7], new Tower("white")]])
+  );
 });
