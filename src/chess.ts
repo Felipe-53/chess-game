@@ -7,14 +7,9 @@ export class Chess {
   private states: Board[];
 
   constructor(board?: Board) {
+    board ? (this.board = board) : (this.board = new Board());
     this.turn = "white";
-    this.states = [];
-    if (board) {
-      this.board = board;
-    } else {
-      this.board = new Board();
-    }
-    this.states.push(structuredClone(this.board));
+    this.states = [structuredClone(this.board)];
   }
 
   move(from: Position, to: Position) {
