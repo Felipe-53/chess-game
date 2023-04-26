@@ -1,3 +1,7 @@
+# Implementation notes
+
+The following is the notes I took while implementing the program. They serve the purpose of building a mental model of the system and guide its development.
+
 ### The elements of the game
 
 1. A board
