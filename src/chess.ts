@@ -1,8 +1,6 @@
 import { Piece } from "./pieces";
 import { Player, Position } from "./types";
 
-type Board = Map<Position, Piece>;
-
 export class Chess {
   private board: Board;
   private turn: Player;
@@ -14,8 +12,9 @@ export class Chess {
     if (board) {
       this.board = board;
     } else {
-      this.board = new Map();
+      this.board = new Board();
     }
+    this.states.push(structuredClone(this.board));
   }
 
   move(from: Position, to: Position) {
@@ -24,10 +23,10 @@ export class Chess {
       throw Error("No piece to move");
     }
 
+    this.board.delete(from);
     this.board.set(to, piece);
-    this.board.delete(to);
 
-    this.states.push(this.board);
+    this.states.push(structuredClone(this.board));
     this.turn = this.turn === "white" ? "black" : "white";
   }
 
@@ -64,5 +63,28 @@ export class Chess {
     }
 
     return moves;
+  }
+
+  getStates() {
+    return this.states;
+  }
+}
+
+export class Board {
+  private board: Map<string, Piece>;
+  constructor() {
+    this.board = new Map();
+  }
+
+  get(element: Position) {
+    return this.board.get(element.toString());
+  }
+
+  set(element: Position, piece: Piece) {
+    return this.board.set(element.toString(), piece);
+  }
+
+  delete(element: Position) {
+    this.board.delete(element.toString());
   }
 }
