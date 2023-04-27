@@ -1,6 +1,6 @@
 import { test, expect } from "vitest";
 import { Board, Chess } from "./chess";
-import { Tower } from "./pieces";
+import { Bishop, Tower } from "./pieces";
 import { Position } from "./types";
 
 test("Can instantiate chess game", () => {
@@ -39,4 +39,20 @@ test("Can move a tower on an empty board", () => {
   expect(chess.getStates()[1]).toEqual(
     new Board([[[0, 7], new Tower("white")]])
   );
+});
+
+test("Cannot move a constrained tower", () => {
+  const board = new Board();
+
+  board.set([0, 0], new Tower("white"));
+
+  board.set([1, 0], new Bishop("white"));
+  board.set([0, 1], new Bishop("white"));
+  board.set([1, 1], new Bishop("white"));
+
+  const chess = new Chess(board);
+
+  const moves = chess.getPossibleMoves([0, 0]);
+
+  expect(moves.length).toBe(0);
 });
