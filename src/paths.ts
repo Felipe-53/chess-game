@@ -26,33 +26,37 @@ export function* right(from: Position) {
 
 export function* upperLeft(from: Position) {
   let [i, j] = from;
-  while (i >= 0 || j >= 0) {
-    i--, j--;
+  i--, j--;
+  while (i >= 0 && j >= 0) {
     yield [i, j] as Position;
+    i--, j--;
   }
 }
 
 export function* upperRight(from: Position) {
   let [i, j] = from;
-  while (i >= 0 || j <= 7) {
-    i--, j++;
+  i--, j++;
+  while (i >= 0 && j <= 7) {
     yield [i, j] as Position;
+    i--, j++;
   }
 }
 
 export function* lowerLeft(from: Position) {
   let [i, j] = from;
-  while (i <= 7 || j >= 0) {
-    i++, j--;
+  i++, j--;
+  while (i <= 7 && j >= 0) {
     yield [i, j] as Position;
+    i++, j--;
   }
 }
 
 export function* lowerRight(from: Position) {
   let [i, j] = from;
-  while (i <= 7 || j <= 7) {
-    i++, j++;
+  i++, j++;
+  while (i <= 7 && j <= 7) {
     yield [i, j] as Position;
+    i++, j++;
   }
 }
 
