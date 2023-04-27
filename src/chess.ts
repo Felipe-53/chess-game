@@ -162,7 +162,18 @@ export class Board {
   }
 
   getPlayerPiecesPositions(player: Player): Position[] {
-    return [];
+    const positions: Position[] = [];
+
+    for (const entry of this.board) {
+      const [positionString, piece] = entry;
+      if (piece.player === player) {
+        const position = Array.from(positionString.replace(",", "")).map(
+          (numberString) => Number.parseInt(numberString)
+        ) as Position;
+        positions.push(position);
+      }
+    }
+    return positions;
   }
 
   get(element: Position) {
