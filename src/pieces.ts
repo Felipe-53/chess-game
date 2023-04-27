@@ -137,3 +137,64 @@ export class King extends Piece {
     return paths;
   }
 }
+
+export class Pawn extends Piece {
+  constructor(public player: Player) {
+    super(player);
+  }
+
+  getPossiblePaths(from: Position) {
+    return [up(from)];
+  }
+
+  getValidMoves(from: Position, board: Board) {
+    const moves: Position[] = [];
+    const [i, j] = from;
+
+    if (this.player == "white") {
+      moves.push([i - 1, j]);
+
+      if (this.isFistMove(from)) {
+        moves.push([i - 2, j]);
+      }
+
+      const blackPawnDiagonals: Position[] = [
+        [i - 1, j - 1],
+        [i - 1, j + 1],
+      ];
+
+      blackPawnDiagonals.forEach((diagonal) => {
+        if (board.get(diagonal)?.player !== this.player) {
+          moves.push(diagonal);
+        }
+      });
+    }
+
+    if (this.player == "black") {
+      moves.push([i + 1, j]);
+
+      if (this.isFistMove(from)) {
+        moves.push([i + 2, j]);
+      }
+
+      const blackPawnDiagonals: Position[] = [
+        [i + 1, j - 1],
+        [i + 1, j + 1],
+      ];
+
+      blackPawnDiagonals.forEach((diagonal) => {
+        if (board.get(diagonal)?.player !== this.player) {
+          moves.push(diagonal);
+        }
+      });
+    }
+
+    return moves;
+  }
+
+  isFistMove(position: Position) {
+    if (this.player === "black" && position[0] === 1) return true;
+    if (this.player === "white" && position[0] === 6) return true;
+    return false;
+  }
+}
