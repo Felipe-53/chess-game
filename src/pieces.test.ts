@@ -1,6 +1,9 @@
 import { expect, test } from "vitest";
 import { Bishop, Tower } from "./pieces";
 
+// TODO: some wisdom: testing the individual paths makes more sense
+// then, a simples integration test with the pieces would suffice
+// you're kinda wasting time doing that
 test("Bishop", () => {
   let bishop = new Bishop("black");
 
