@@ -178,3 +178,27 @@ test("All player's piece positions", () => {
   expect(board.getPlayerPiecesPositions("white").length).toBe(16);
   expect(board.getPlayerPiecesPositions("black").length).toBe(16);
 });
+
+test("Simple check", () => {
+  board.set([0, 0], new King("black"));
+  board.set([7, 7], new Tower("white"));
+
+  const chess = new Chess(board);
+
+  chess.move([7, 7], [7, 0]);
+
+  expect(chess.isCheck).toBe(true);
+});
+
+test("Simple checkmate", () => {
+  board.set([0, 0], new King("black"));
+  board.set([7, 0], new Tower("white"));
+  board.set([0, 7], new Tower("white"));
+  board.set([7, 5], new Bishop("white"));
+
+  const chess = new Chess(board);
+
+  chess.move([7, 5], [6, 6]);
+
+  expect(chess.isCheckmate).toBe(true);
+});
