@@ -10,16 +10,12 @@ test("Bishop", () => {
     moves.push(...path);
   }
 
-  console.log(moves);
-
   let i = 1;
   const diagonal = [];
   while (i < 8) {
     diagonal.push([i, i]);
     i++;
   }
-
-  console.log(diagonal);
 
   for (const position of diagonal) {
     expect(
