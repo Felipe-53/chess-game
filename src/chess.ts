@@ -31,7 +31,7 @@ export class Chess {
     const movingPiece = this.board.get(from);
     if (!movingPiece) throw Error("No piece on position");
 
-    const paths = movingPiece.getPaths(from);
+    const paths = movingPiece.getPossiblePaths(from);
 
     for (const path of paths) {
       for (const position of path) {

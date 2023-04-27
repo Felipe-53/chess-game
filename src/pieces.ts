@@ -21,13 +21,13 @@ import { Player, Position } from "./types";
 
 export interface Piece {
   player: Player;
-  getPaths: (from: Position) => Generator<Position, void, unknown>[];
+  getPossiblePaths: (from: Position) => Generator<Position, void, unknown>[];
 }
 
 export class Tower implements Piece {
   constructor(public player: Player) {}
 
-  getPaths(from: Position) {
+  getPossiblePaths(from: Position) {
     const paths = [left(from), right(from), down(from), up(from)];
     return paths;
   }
@@ -36,7 +36,7 @@ export class Tower implements Piece {
 export class Knight implements Piece {
   constructor(public player: Player) {}
 
-  getPaths(from: Position) {
+  getPossiblePaths(from: Position) {
     const paths = getKnightPaths(from);
     return paths;
   }
@@ -45,7 +45,7 @@ export class Knight implements Piece {
 export class Bishop implements Piece {
   constructor(public player: Player) {}
 
-  getPaths(from: Position) {
+  getPossiblePaths(from: Position) {
     const paths = [
       upperLeft(from),
       upperRight(from),
@@ -59,7 +59,7 @@ export class Bishop implements Piece {
 export class Queen implements Piece {
   constructor(public player: Player) {}
 
-  getPaths(from: Position) {
+  getPossiblePaths(from: Position) {
     const paths = [
       upperLeft(from),
       upperRight(from),
@@ -77,7 +77,7 @@ export class Queen implements Piece {
 export class King implements Piece {
   constructor(public player: Player) {}
 
-  getPaths(from: Position) {
+  getPossiblePaths(from: Position) {
     const paths = [
       upperLeftOne(from),
       upperRightOne(from),
