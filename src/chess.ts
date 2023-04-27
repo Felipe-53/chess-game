@@ -27,13 +27,8 @@ export class Chess {
 
     this.turn = this.turn === "white" ? "black" : "white";
 
-    const checkCondition = this.check();
-    if (checkCondition.check) {
-      this.isCheck = true;
-      if (checkCondition.mate) {
-        this.isCheckmate = true;
-      }
-    }
+    const { check, checkmate } = this.check();
+    (this.isCheck = check), (this.isCheckmate = checkmate);
 
     this.states.push(structuredClone(this.board));
   }
@@ -57,7 +52,7 @@ export class Chess {
       if (check) break;
     }
 
-    let mate = false;
+    let checkmate = false;
     if (check) {
       const currentPlayerKing = this.board.get(currentPlayerKingPosition)!;
       const possibleKingMoves = currentPlayerKing.getValidMoves(
@@ -72,7 +67,7 @@ export class Chess {
         allOpponentMoves.push(...pieceValidMoves);
       }
 
-      mate = possibleKingMoves.every((kingMove) => {
+      checkmate = possibleKingMoves.every((kingMove) => {
         const kingMoveInOpponentMove = allOpponentMoves.some((opponentMove) => {
           return opponentMove.toString() === kingMove.toString();
         });
@@ -81,7 +76,7 @@ export class Chess {
       });
     }
 
-    return { check, mate };
+    return { check, checkmate };
   }
 
   getValidMoves(from: Position) {
