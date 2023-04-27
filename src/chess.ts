@@ -7,7 +7,7 @@ export class Chess {
   private states: Board[];
 
   constructor(board?: Board) {
-    board ? (this.board = board) : (this.board = new Board());
+    board ? (this.board = board) : (this.board = Board.new());
     this.turn = "white";
     this.states = [structuredClone(this.board)];
   }
