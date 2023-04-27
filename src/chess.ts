@@ -25,7 +25,7 @@ export class Chess {
     this.turn = this.turn === "white" ? "black" : "white";
   }
 
-  getPossibleMoves(from: Position) {
+  getValidMoves(from: Position) {
     const moves: Position[] = [];
 
     const movingPiece = this.board.get(from);

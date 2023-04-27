@@ -52,7 +52,7 @@ test("Cannot move a constrained tower", () => {
 
   const chess = new Chess(board);
 
-  const moves = chess.getPossibleMoves([0, 0]);
+  const moves = chess.getValidMoves([0, 0]);
 
   expect(moves.length).toBe(0);
 });
