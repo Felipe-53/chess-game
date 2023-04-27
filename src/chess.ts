@@ -31,35 +31,11 @@ export class Chess {
     const movingPiece = this.board.get(from);
     if (!movingPiece) throw Error("No piece on position");
 
-    const paths = movingPiece.getPossiblePaths(from);
-
-    for (const path of paths) {
-      for (const position of path) {
-        const piece = this.board.get(position);
-
-        if (!piece) {
-          moves.push(position);
-          continue;
-        }
-
-        if (movingPiece.player === piece.player) {
-          // Path is blocked, look no further
-          break;
-        }
-
-        if (movingPiece.player !== piece.player) {
-          // A take move, but the rest of the path is blocked
-          moves.push(position);
-          break;
-        }
-
-        moves.push(position);
-      }
-    }
+    let validPieceMoves = movingPiece.getValidMoves(from, this.board);
 
     // TODO: filter out check conditions
 
-    return moves;
+    return validPieceMoves;
   }
 
   getStates() {
