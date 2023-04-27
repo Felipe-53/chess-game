@@ -1,7 +1,13 @@
-import { test, expect } from "vitest";
+import { test, expect, describe, beforeEach } from "vitest";
 import { Board, Chess } from "./chess";
 import { Bishop, Tower } from "./pieces";
 import { Position } from "./types";
+
+let board: Board;
+
+beforeEach(() => {
+  board = new Board();
+});
 
 test("Can instantiate chess game", () => {
   let chess = new Chess();
@@ -9,8 +15,6 @@ test("Can instantiate chess game", () => {
 });
 
 test("can get, retrieve and delete from Board", () => {
-  let board = new Board();
-
   board.set([0, 0], new Tower("white"));
   expect(board.get([0, 0])).toBeTruthy();
   board.delete([0, 0]);
@@ -18,7 +22,6 @@ test("can get, retrieve and delete from Board", () => {
 });
 
 test("Can instantiate a chess game with given initial state", () => {
-  const board = new Board();
   board.set([0, 0], new Tower("white"));
 
   let chess = new Chess(board);
@@ -29,7 +32,6 @@ test("Can instantiate a chess game with given initial state", () => {
 });
 
 test("Can move a tower on an empty board", () => {
-  const board = new Board();
   board.set([0, 0], new Tower("white"));
 
   let chess = new Chess(board);
@@ -42,8 +44,6 @@ test("Can move a tower on an empty board", () => {
 });
 
 test("Cannot move a constrained tower", () => {
-  const board = new Board();
-
   board.set([0, 0], new Tower("white"));
 
   board.set([1, 0], new Bishop("white"));
