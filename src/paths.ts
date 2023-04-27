@@ -63,49 +63,65 @@ export function* lowerRight(from: Position) {
 export function* upOne(from: Position) {
   const generator = up(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* downOne(from: Position) {
   const generator = down(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* leftOne(from: Position) {
   const generator = left(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* rightOne(from: Position) {
   const generator = right(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* upperLeftOne(from: Position) {
   const generator = upperLeft(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* upperRightOne(from: Position) {
   const generator = upperRight(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* lowerLeftOne(from: Position) {
   const generator = lowerLeft(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function* lowerRightOne(from: Position) {
   const generator = lowerRight(from);
   let position = generator.next();
-  yield position;
+  if (position.value) {
+    yield position.value;
+  }
 }
 
 export function getKnightPaths(
