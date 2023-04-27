@@ -1,6 +1,6 @@
 import { test, expect, describe, beforeEach } from "vitest";
 import { Board, Chess } from "./chess";
-import { Bishop, Pawn, Queen, Tower } from "./pieces";
+import { Bishop, King, Knight, Pawn, Queen, Tower } from "./pieces";
 import { Position } from "./types";
 
 let board: Board;
@@ -33,13 +33,19 @@ test("Can instantiate a chess game with given initial state", () => {
 
 test("Can move a tower on an empty board", () => {
   board.set([0, 0], new Tower("white"));
+  // TODO: if king is not added, test fail because of failure
+  // to verify check condition
+  board.set([5, 5], new King("black"));
 
   let chess = new Chess(board);
 
   chess.move([0, 0], [0, 7]);
 
   expect(chess.getStates()[1]).toEqual(
-    new Board([[[0, 7], new Tower("white")]])
+    new Board([
+      [[0, 7], new Tower("white")],
+      [[5, 5], new King("black")],
+    ])
   );
 });
 
@@ -130,4 +136,45 @@ describe("Pawn special moves", () => {
 
     expect(moves).not.toContainEqual(doubleStep);
   });
+});
+
+test("King position", () => {
+  const whiteKingPosition: Position = [0, 0];
+  const blackKingPosition: Position = [7, 7];
+
+  board.set(whiteKingPosition, new King("white"));
+
+  expect(board.getKingPosition("white")).toEqual(whiteKingPosition);
+
+  board.set(blackKingPosition, new King("black"));
+
+  expect(board.getKingPosition("black")).toEqual(blackKingPosition);
+});
+
+test("All player's piece positions", () => {
+  const allWhitePieces: Position[] = [];
+
+  let pawnPosition = [0, 0] as Position;
+  let bishopPosition = [1, 1] as Position;
+  let knightPosition = [6, 7] as Position;
+  let kingPosition = [3, 7] as Position;
+
+  allWhitePieces.push(pawnPosition);
+  allWhitePieces.push(bishopPosition);
+  allWhitePieces.push(knightPosition);
+  allWhitePieces.push(kingPosition);
+
+  board.set(pawnPosition, new Pawn("white"));
+  board.set(bishopPosition, new Bishop("white"));
+  board.set(knightPosition, new Knight("white"));
+  board.set(kingPosition, new King("white"));
+
+  board.set([5, 5], new King("black"));
+
+  expect(board.getPlayerPiecesPositions("white")).toEqual(allWhitePieces);
+
+  board = Board.new();
+
+  expect(board.getPlayerPiecesPositions("white").length).toBe(16);
+  expect(board.getPlayerPiecesPositions("black").length).toBe(16);
 });
