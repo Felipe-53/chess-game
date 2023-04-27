@@ -57,6 +57,8 @@ export class Chess {
       }
     }
 
+    // TODO: filter out check conditions
+
     return moves;
   }
 
