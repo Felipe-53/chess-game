@@ -164,7 +164,9 @@ export class Pawn extends Piece {
       ];
 
       blackPawnDiagonals.forEach((diagonal) => {
-        if (board.get(diagonal)?.player !== this.player) {
+        const piece = board.get(diagonal);
+        if (!piece) return;
+        if (piece.player !== this.player) {
           moves.push(diagonal);
         }
       });
@@ -183,7 +185,9 @@ export class Pawn extends Piece {
       ];
 
       blackPawnDiagonals.forEach((diagonal) => {
-        if (board.get(diagonal)?.player !== this.player) {
+        const piece = board.get(diagonal);
+        if (!piece) return;
+        if (piece.player !== this.player) {
           moves.push(diagonal);
         }
       });
