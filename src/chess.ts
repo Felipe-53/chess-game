@@ -5,11 +5,15 @@ export class Chess {
   private board: Board;
   private turn: Player;
   private states: Board[];
+  private isCheck: boolean;
+  private isCheckmate: boolean;
 
   constructor(board?: Board) {
     board ? (this.board = board) : (this.board = Board.new());
     this.turn = "white";
     this.states = [structuredClone(this.board)];
+    this.isCheck = false;
+    this.isCheckmate = false;
   }
 
   move(from: Position, to: Position) {
@@ -21,19 +25,82 @@ export class Chess {
     this.board.delete(from);
     this.board.set(to, piece);
 
-    this.states.push(structuredClone(this.board));
     this.turn = this.turn === "white" ? "black" : "white";
+
+    const checkCondition = this.check();
+    if (checkCondition.check) {
+      this.isCheck = true;
+      if (checkCondition.mate) {
+        this.isCheckmate = true;
+      }
+    }
+
+    this.states.push(structuredClone(this.board));
+  }
+
+  check() {
+    const currentPlayerKingPosition = this.board.getKingPosition(this.turn)!;
+    const opposingPlayerPiecesPositions = this.board.getPlayerPiecesPositions(
+      this.turn === "white" ? "black" : "white"
+    );
+
+    let check = false;
+    for (const piecePosition of opposingPlayerPiecesPositions) {
+      const piece = this.board.get(piecePosition)!;
+      const pieceValidMoves = piece.getValidMoves(piecePosition, this.board);
+      for (const move of pieceValidMoves) {
+        if (move.toString() == currentPlayerKingPosition.toString()) {
+          check = true;
+          break;
+        }
+      }
+      if (check) break;
+    }
+
+    let mate = false;
+    if (check) {
+      const currentPlayerKing = this.board.get(currentPlayerKingPosition)!;
+      const possibleKingMoves = currentPlayerKing.getValidMoves(
+        currentPlayerKingPosition,
+        this.board
+      );
+
+      const allOpponentMoves: Position[] = [];
+      for (const piecePosition of opposingPlayerPiecesPositions) {
+        const piece = this.board.get(piecePosition)!;
+        const pieceValidMoves = piece.getValidMoves(piecePosition, this.board);
+        allOpponentMoves.push(...pieceValidMoves);
+      }
+
+      mate = possibleKingMoves.every((kingMove) => {
+        const kingMoveInOpponentMove = allOpponentMoves.some((opponentMove) => {
+          return opponentMove.toString() === kingMove.toString();
+        });
+
+        return kingMoveInOpponentMove;
+      });
+    }
+
+    return { check, mate };
   }
 
   getValidMoves(from: Position) {
-    const moves: Position[] = [];
-
     const movingPiece = this.board.get(from);
     if (!movingPiece) throw Error("No piece on position");
 
     let validPieceMoves = movingPiece.getValidMoves(from, this.board);
 
-    // TODO: filter out check conditions
+    if (this.isCheck) {
+      const chessCopy = structuredClone(this);
+      for (const position of validPieceMoves) {
+        chessCopy.move(from, position);
+        if (chessCopy.isCheck) {
+          validPieceMoves.filter((move) => {
+            return move.toString() !== position.toString();
+          });
+        }
+      }
+    }
 
     return validPieceMoves;
   }
@@ -85,6 +152,22 @@ export class Board {
     board.set([7, 7], new Tower("white"));
 
     return board;
+  }
+
+  getKingPosition(player: Player) {
+    for (const entry of this.board) {
+      const [positionString, piece] = entry;
+      if (piece instanceof King && piece.player === player) {
+        const position = Array.from(positionString.replace(",", "")).map(
+          (numberString) => Number.parseInt(numberString)
+        ) as Position;
+        return position;
+      }
+    }
+  }
+
+  getPlayerPiecesPositions(player: Player): Position[] {
+    return [];
   }
 
   get(element: Position) {
