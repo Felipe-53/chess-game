@@ -8,7 +8,7 @@ import { Position } from "./types";
 test("Bishop", () => {
   let bishop = new Bishop("black");
 
-  let paths = bishop.getPaths([0, 0]);
+  let paths = bishop.getPossiblePaths([0, 0]);
 
   let moves = [];
   for (const path of paths) {
@@ -34,7 +34,7 @@ test("Bishop", () => {
 test("tower", () => {
   const tower = new Tower("white");
 
-  let paths = tower.getPaths([0, 0]);
+  let paths = tower.getPossiblePaths([0, 0]);
 
   let moves = [];
   for (const path of paths) {
@@ -61,7 +61,7 @@ test("tower", () => {
     moves.some((move) => move.toString() === [1, 1].toString())
   ).toBeFalsy();
 
-  paths = tower.getPaths([4, 4]);
+  paths = tower.getPossiblePaths([4, 4]);
 
   moves = [];
   for (const path of paths) {
@@ -94,7 +94,7 @@ test("King", () => {
 
   let position = [4, 4] as Position;
 
-  let paths = king.getPaths(position);
+  let paths = king.getPossiblePaths(position);
 
   let moves = [];
   for (const path of paths) {
@@ -111,7 +111,7 @@ test("King", () => {
 
   position = [0, 0];
 
-  paths = king.getPaths(position);
+  paths = king.getPossiblePaths(position);
 
   moves = [];
   for (const path of paths) {
