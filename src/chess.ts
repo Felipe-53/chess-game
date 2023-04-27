@@ -5,8 +5,8 @@ export class Chess {
   private board: Board;
   private turn: Player;
   private states: Board[];
-  private isCheck: boolean;
-  private isCheckmate: boolean;
+  public isCheck: boolean;
+  public isCheckmate: boolean;
 
   constructor(board?: Board) {
     board ? (this.board = board) : (this.board = Board.new());
