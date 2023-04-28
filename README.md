@@ -24,6 +24,10 @@ Each piece has a specific set of rules for moving.
 
 If a player makes a move such that their piece lands in the same spot as any of the opponents pieces, that piece is removed from the game.
 
+### Check
+
+A check is a special condition in which the opponent's King is threatened, meaning that if nothing is done about it, you are in a position such that you could take the king of you opponent in the next move. In the case, the opposing player MUST make one of the possible moves that will spare his king.
+
 ### End condition: check mate
 
 The game end when one of the players is in a position such that, no matter what moves he makes, there will be a way for the other player to take over their piece.
