@@ -83,6 +83,8 @@ export class Chess {
     const movingPiece = this.board.get(from);
     if (!movingPiece) throw Error("No piece on position");
 
+    if (movingPiece.player !== this.turn) throw Error("Not on player's turn");
+
     let validPieceMoves = movingPiece.getValidMoves(from, this.board);
 
     if (this.isCheck) {
