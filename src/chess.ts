@@ -16,6 +16,14 @@ export class Chess {
     this.isCheckmate = false;
   }
 
+  getBoard() {
+    return this.board;
+  }
+
+  getTurn() {
+    return this.turn;
+  }
+
   move(from: Position, to: Position) {
     const piece = this.board.get(from);
     if (!piece) {
