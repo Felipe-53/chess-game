@@ -144,6 +144,11 @@ export function getKnightPaths(
   let rv: Generator<Position, void, unknown>[] = [];
 
   for (const move of moves) {
+    const [i, j] = move;
+    if (i < 0 || i > 7 || j < 0 || j > 7) {
+      continue;
+    }
+
     let gen = function* (from: Position) {
       yield move;
     };

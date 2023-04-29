@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import { Bishop, King, Rook } from "./pieces";
 import { Position } from "./types";
+import { Chess } from "./chess";
 
 // TODO: some wisdom: testing the individual paths makes more sense
 // then, a simples integration test with the pieces would suffice
@@ -129,6 +130,11 @@ test("King", () => {
       moves.some((move) => move.toString() === position.toString())
     ).toBeTruthy();
   }
+});
+
+test("Knight", () => {
+  const chess = new Chess();
+  expect(chess.getValidMoves([7, 1]).length).toBe(2);
 });
 
 function getAllDirectionsOneUnity(position: Position) {
