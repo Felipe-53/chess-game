@@ -158,11 +158,11 @@ export class Pawn extends Piece {
     if (this.player == "white") {
       if (!board.get([i - 1, j])) {
         moves.push([i - 1, j]);
-      }
 
-      if (this.isFistMove(from)) {
-        if (!board.get([i - 2, j])) {
-          moves.push([i - 2, j]);
+        if (this.isFistMove(from)) {
+          if (!board.get([i - 2, j])) {
+            moves.push([i - 2, j]);
+          }
         }
       }
 
@@ -183,11 +183,11 @@ export class Pawn extends Piece {
     if (this.player == "black") {
       if (!board.get([i + 1, j])) {
         moves.push([i + 1, j]);
-      }
 
-      if (this.isFistMove(from)) {
-        if (!board.get([i + 2, j])) {
-          moves.push([i + 2, j]);
+        if (this.isFistMove(from)) {
+          if (!board.get([i + 2, j])) {
+            moves.push([i + 2, j]);
+          }
         }
       }
 
