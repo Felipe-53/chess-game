@@ -41,9 +41,12 @@ function App() {
         }
 
         function onClickHandler() {
+          if (chess.isCheckmate) return;
+
           if (piece && !possibleMove) {
             return setSelectedPiece([i, j]);
           }
+
           if (possibleMove) {
             chess.move(selectedPiece!, [i, j]);
             setSelectedPiece(null);
