@@ -1,33 +1,40 @@
 import { useState } from "react";
-import whiteKing from "./assets/svg/white-king.svg";
-import blackKing from "./assets/svg/black-king.svg";
-import whiteQueen from "./assets/svg/white-queen.svg";
-import blackQueen from "./assets/svg/black-queen.svg";
-import whiteBishop from "./assets/svg/white-bishop.svg";
-import blackBishop from "./assets/svg/black-bishop.svg";
-import whiteKnight from "./assets/svg/white-knight.svg";
-import blackKnight from "./assets/svg/black-knight.svg";
-import whiteRook from "./assets/svg/white-rook.svg";
-import blackRook from "./assets/svg/black-rook.svg";
-import whitePawn from "./assets/svg/white-pawn.svg";
-import blackPawn from "./assets/svg/black-pawn.svg";
 
 import { Chess } from "../../backend/src/chess";
+import { Piece } from "./components/Piece";
+import { Position } from "./types";
 
 const chess = new Chess();
 
 function App() {
   const [chessGame, setChessGame] = useState(chess);
+  const [selectedPiece, setSelectedPiece] = useState<Position | null>(null);
 
   function tiles() {
     const indexes = [0, 1, 2, 3, 4, 5, 6, 7];
     const arr = [];
+
+    const board = chessGame.getBoard();
+
+    let possibleMoves: Position[] = [];
+    if (selectedPiece) {
+      try {
+        possibleMoves = chess.getValidMoves(selectedPiece);
+      } catch {}
+    }
 
     let color = false;
     for (const i of indexes) {
       for (const j of indexes) {
         const bg = color ? "bg-green-400" : "bg-gray-400";
         const stringId = i.toString() + j.toString();
+
+        const piece = board.get([i, j]);
+
+        const possibleMove = possibleMoves.find((position) => {
+          if (position.toString() === [i, j].toString()) return true;
+        });
+
         arr.push(
           <div
             key={stringId}
@@ -39,7 +46,22 @@ function App() {
               "flex items-center justify-center"
             }
           >
-            <img width={50} src={whiteKing} />
+            {piece ? (
+              <Piece
+                name={piece.name}
+                select={() => setSelectedPiece([i, j])}
+              />
+            ) : null}
+
+            {possibleMove ? (
+              <div
+                onClick={() => {
+                  chess.move(selectedPiece!, [i, j]);
+                  setSelectedPiece(null);
+                }}
+                className="w-6 h-6 rounded-full bg-yellow-400"
+              ></div>
+            ) : null}
           </div>
         );
         color = !color;
