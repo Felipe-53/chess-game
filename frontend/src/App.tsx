@@ -37,7 +37,7 @@ function App() {
         if (possibleMove) {
           bg = "bg-yellow-400";
         } else {
-          bg = color ? "bg-green-400" : "bg-gray-300";
+          bg = color ? "bg-amber-900" : "bg-stone-500";
         }
 
         function onClickHandler() {
