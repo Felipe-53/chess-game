@@ -101,14 +101,33 @@ export class Chess {
     for (const position of validPieceMoves) {
       const chessCopy = this.deepCopy();
       chessCopy.move(from, position);
-      if (chessCopy.isCheck) {
-        validPieceMoves.filter((move) => {
+      if (chessCopy.isKingThreatened(this.turn)) {
+        validPieceMoves = validPieceMoves.filter((move) => {
           return move.toString() !== position.toString();
         });
       }
     }
 
     return validPieceMoves;
+  }
+
+  isKingThreatened(player: Player) {
+    const king = this.board.getKingPosition(player)!;
+    const opposingPlayerPiecesPositions = this.board.getPlayerPiecesPositions(
+      player === "white" ? "black" : "white"
+    );
+
+    for (const piecePosition of opposingPlayerPiecesPositions) {
+      const piece = this.board.get(piecePosition)!;
+      const pieceValidMoves = piece.getPossibleMoves(piecePosition, this.board);
+      for (const move of pieceValidMoves) {
+        if (move.toString() == king.toString()) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   deepCopy() {
