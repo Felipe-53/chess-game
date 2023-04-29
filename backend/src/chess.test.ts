@@ -179,6 +179,11 @@ test("All player's piece positions", () => {
   expect(board.getPlayerPiecesPositions("black").length).toBe(16);
 });
 
+test("", () => {
+  const chess = new Chess();
+  chess.getValidMoves([6, 0]);
+});
+
 test("Simple check", () => {
   board.set([0, 0], new King("black"));
   board.set([7, 7], new Rook("white"));

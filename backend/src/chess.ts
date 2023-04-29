@@ -98,19 +98,24 @@ export class Chess {
 
     let validPieceMoves = movingPiece.getPossibleMoves(from, this.board);
 
-    if (this.isCheck) {
-      const chessCopy = structuredClone(this);
-      for (const position of validPieceMoves) {
-        chessCopy.move(from, position);
-        if (chessCopy.isCheck) {
-          validPieceMoves.filter((move) => {
-            return move.toString() !== position.toString();
-          });
-        }
+    for (const position of validPieceMoves) {
+      const chessCopy = this.deepCopy();
+      chessCopy.move(from, position);
+      if (chessCopy.isCheck) {
+        validPieceMoves.filter((move) => {
+          return move.toString() !== position.toString();
+        });
       }
     }
 
     return validPieceMoves;
+  }
+
+  deepCopy() {
+    const boardCopy = this.board.deepCopy();
+    const chessCopy = new Chess(boardCopy);
+    chessCopy.turn = this.turn;
+    return chessCopy;
   }
 
   getStates() {
@@ -199,5 +204,18 @@ export class Board {
 
   delete(element: Position) {
     this.board.delete(element.toString());
+  }
+
+  deepCopy() {
+    const newBoard = new Board();
+    for (const [stringKey, value] of this.board) {
+      const key: Position = [
+        Number.parseInt(stringKey[0]),
+        Number.parseInt(stringKey[2]),
+      ];
+      newBoard.set(key, value);
+    }
+
+    return newBoard;
   }
 }
