@@ -11,15 +11,13 @@ import whiteRook from "../assets/svg/white-rook.svg";
 import blackRook from "../assets/svg/black-rook.svg";
 import whitePawn from "../assets/svg/white-pawn.svg";
 import blackPawn from "../assets/svg/black-pawn.svg";
-import { Position } from "../types";
 
 interface Props {
   name: string;
-  select: () => void;
 }
 
-export const Piece: React.FC<Props> = ({ name, select }) => {
-  return <img onClick={select} width={50} src={pieceSvgMap[name]} />;
+export const Piece: React.FC<Props> = ({ name }) => {
+  return <img width={50} src={pieceSvgMap[name]} />;
 };
 
 const pieceSvgMap: Record<string, string> = {
