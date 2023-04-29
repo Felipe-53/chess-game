@@ -25,7 +25,6 @@ function App() {
     let color = false;
     for (const i of indexes) {
       for (const j of indexes) {
-        const bg = color ? "bg-green-400" : "bg-gray-300";
         const stringId = i.toString() + j.toString();
 
         const piece = board.get([i, j]);
@@ -33,6 +32,13 @@ function App() {
         const possibleMove = possibleMoves.find((position) => {
           if (position.toString() === [i, j].toString()) return true;
         });
+
+        let bg: string;
+        if (possibleMove) {
+          bg = "bg-yellow-400";
+        } else {
+          bg = color ? "bg-green-400" : "bg-gray-300";
+        }
 
         function onClickHandler() {
           if (piece && !possibleMove) {
@@ -44,9 +50,6 @@ function App() {
           }
         }
 
-        let highlight: string;
-        highlight = possibleMove ? "bg-yellow-400" : "";
-
         arr.push(
           <div
             key={stringId}
@@ -56,9 +59,7 @@ function App() {
               " " +
               bg +
               " " +
-              "flex items-center justify-center" +
-              " " +
-              highlight
+              "flex items-center justify-center"
             }
           >
             {piece ? <Piece name={piece.name} /> : null}
