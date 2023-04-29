@@ -42,49 +42,22 @@ export class Chess {
   }
 
   check() {
-    const currentPlayerKingPosition = this.board.getKingPosition(this.turn)!;
-    const opposingPlayerPiecesPositions = this.board.getPlayerPiecesPositions(
-      this.turn === "white" ? "black" : "white"
-    );
+    let check = this.isKingThreatened(this.turn);
+    let checkmate = false;
 
-    let check = false;
-    for (const piecePosition of opposingPlayerPiecesPositions) {
-      const piece = this.board.get(piecePosition)!;
-      const pieceValidMoves = piece.getPossibleMoves(piecePosition, this.board);
-      for (const move of pieceValidMoves) {
-        if (move.toString() == currentPlayerKingPosition.toString()) {
-          check = true;
+    if (check) {
+      checkmate = true;
+
+      const currentPlayerPiecesPositions = this.board.getPlayerPiecesPositions(
+        this.turn
+      );
+
+      for (const position of currentPlayerPiecesPositions) {
+        if (this.getValidMoves(position).length > 0) {
+          checkmate = false;
           break;
         }
       }
-      if (check) break;
-    }
-
-    let checkmate = false;
-    if (check) {
-      const currentPlayerKing = this.board.get(currentPlayerKingPosition)!;
-      const possibleKingMoves = currentPlayerKing.getPossibleMoves(
-        currentPlayerKingPosition,
-        this.board
-      );
-
-      const allOpponentMoves: Position[] = [];
-      for (const piecePosition of opposingPlayerPiecesPositions) {
-        const piece = this.board.get(piecePosition)!;
-        const pieceValidMoves = piece.getPossibleMoves(
-          piecePosition,
-          this.board
-        );
-        allOpponentMoves.push(...pieceValidMoves);
-      }
-
-      checkmate = possibleKingMoves.every((kingMove) => {
-        const kingMoveInOpponentMove = allOpponentMoves.some((opponentMove) => {
-          return opponentMove.toString() === kingMove.toString();
-        });
-
-        return kingMoveInOpponentMove;
-      });
     }
 
     return { check, checkmate };

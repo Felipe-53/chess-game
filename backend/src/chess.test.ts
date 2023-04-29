@@ -193,6 +193,7 @@ test("check", () => {
 });
 
 test("Simple check", () => {
+  board.set([5, 5], new King("white"));
   board.set([0, 0], new King("black"));
   board.set([7, 7], new Rook("white"));
 
@@ -204,7 +205,10 @@ test("Simple check", () => {
 });
 
 test("Simple checkmate", () => {
+  board.set([4, 5], new King("white"));
+
   board.set([0, 0], new King("black"));
+
   board.set([7, 0], new Rook("white"));
   board.set([0, 7], new Rook("white"));
   board.set([7, 5], new Bishop("white"));
