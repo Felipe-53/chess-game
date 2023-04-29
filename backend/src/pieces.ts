@@ -156,10 +156,14 @@ export class Pawn extends Piece {
     const [i, j] = from;
 
     if (this.player == "white") {
-      moves.push([i - 1, j]);
+      if (!board.get([i - 1, j])) {
+        moves.push([i - 1, j]);
+      }
 
       if (this.isFistMove(from)) {
-        moves.push([i - 2, j]);
+        if (!board.get([i - 2, j])) {
+          moves.push([i - 2, j]);
+        }
       }
 
       const blackPawnDiagonals: Position[] = [
@@ -177,10 +181,14 @@ export class Pawn extends Piece {
     }
 
     if (this.player == "black") {
-      moves.push([i + 1, j]);
+      if (!board.get([i + 1, j])) {
+        moves.push([i + 1, j]);
+      }
 
       if (this.isFistMove(from)) {
-        moves.push([i + 2, j]);
+        if (!board.get([i + 2, j])) {
+          moves.push([i + 2, j]);
+        }
       }
 
       const blackPawnDiagonals: Position[] = [
