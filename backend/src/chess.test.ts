@@ -73,7 +73,7 @@ describe("Pawn special moves", () => {
     let diagonal2: Position = [2, 1];
 
     board.set(pawnPosition, pawn);
-    let moves = pawn.getValidMoves(pawnPosition, board);
+    let moves = pawn.getPossibleMoves(pawnPosition, board);
 
     expect(moves).toContainEqual(singleStep);
     expect(moves).toContainEqual(doubleStep);
@@ -83,7 +83,7 @@ describe("Pawn special moves", () => {
     board.set(diagonal1, new Bishop("white"));
     board.set(diagonal2, new Bishop("white"));
 
-    moves = pawn.getValidMoves(pawnPosition, board);
+    moves = pawn.getPossibleMoves(pawnPosition, board);
 
     expect(moves).toContainEqual(diagonal1);
     expect(moves).toContainEqual(diagonal2);
@@ -98,7 +98,7 @@ describe("Pawn special moves", () => {
     let diagonal2: Position = [5, 1];
 
     board.set(pawnPosition, pawn);
-    let moves = pawn.getValidMoves(pawnPosition, board);
+    let moves = pawn.getPossibleMoves(pawnPosition, board);
 
     expect(moves).toContainEqual(singleStep);
     expect(moves).toContainEqual(doubleStep);
@@ -108,7 +108,7 @@ describe("Pawn special moves", () => {
     board.set(diagonal1, new Queen("black"));
     board.set(diagonal2, new Queen("black"));
 
-    moves = pawn.getValidMoves(pawnPosition, board);
+    moves = pawn.getPossibleMoves(pawnPosition, board);
 
     expect(moves).toContainEqual(diagonal1);
     expect(moves).toContainEqual(diagonal2);
@@ -122,7 +122,7 @@ describe("Pawn special moves", () => {
     const board = new Board();
     board.set(pawnPosition, pawn);
 
-    let moves = pawn.getValidMoves(pawnPosition, board);
+    let moves = pawn.getPossibleMoves(pawnPosition, board);
 
     expect(moves).not.toContainEqual(doubleStep);
 
@@ -132,7 +132,7 @@ describe("Pawn special moves", () => {
 
     board.set(pawnPosition, pawn);
 
-    moves = pawn.getValidMoves(pawnPosition, board);
+    moves = pawn.getPossibleMoves(pawnPosition, board);
 
     expect(moves).not.toContainEqual(doubleStep);
   });

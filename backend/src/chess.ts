@@ -50,7 +50,7 @@ export class Chess {
     let check = false;
     for (const piecePosition of opposingPlayerPiecesPositions) {
       const piece = this.board.get(piecePosition)!;
-      const pieceValidMoves = piece.getValidMoves(piecePosition, this.board);
+      const pieceValidMoves = piece.getPossibleMoves(piecePosition, this.board);
       for (const move of pieceValidMoves) {
         if (move.toString() == currentPlayerKingPosition.toString()) {
           check = true;
@@ -63,7 +63,7 @@ export class Chess {
     let checkmate = false;
     if (check) {
       const currentPlayerKing = this.board.get(currentPlayerKingPosition)!;
-      const possibleKingMoves = currentPlayerKing.getValidMoves(
+      const possibleKingMoves = currentPlayerKing.getPossibleMoves(
         currentPlayerKingPosition,
         this.board
       );
@@ -71,7 +71,10 @@ export class Chess {
       const allOpponentMoves: Position[] = [];
       for (const piecePosition of opposingPlayerPiecesPositions) {
         const piece = this.board.get(piecePosition)!;
-        const pieceValidMoves = piece.getValidMoves(piecePosition, this.board);
+        const pieceValidMoves = piece.getPossibleMoves(
+          piecePosition,
+          this.board
+        );
         allOpponentMoves.push(...pieceValidMoves);
       }
 
@@ -93,7 +96,7 @@ export class Chess {
 
     if (movingPiece.player !== this.turn) throw Error("Not on player's turn");
 
-    let validPieceMoves = movingPiece.getValidMoves(from, this.board);
+    let validPieceMoves = movingPiece.getPossibleMoves(from, this.board);
 
     if (this.isCheck) {
       const chessCopy = structuredClone(this);

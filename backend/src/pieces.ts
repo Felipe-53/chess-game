@@ -31,7 +31,7 @@ export abstract class Piece {
     from: Position
   ): Generator<Position, void, unknown>[];
 
-  getValidMoves(from: Position, board: Board) {
+  getPossibleMoves(from: Position, board: Board) {
     const moves: Position[] = [];
 
     const paths = this.getPossiblePaths(from);
@@ -151,7 +151,7 @@ export class Pawn extends Piece {
     return [up(from)];
   }
 
-  getValidMoves(from: Position, board: Board) {
+  getPossibleMoves(from: Position, board: Board) {
     const moves: Position[] = [];
     const [i, j] = from;
 
