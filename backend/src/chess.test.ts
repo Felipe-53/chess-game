@@ -188,6 +188,8 @@ test("check", () => {
   expect(chess.getValidMoves([7, 5])).toContainEqual([3, 1]);
   chess.move([7, 5], [3, 1]);
   expect(chess.getValidMoves([0, 4])).not.toContainEqual([1, 3]);
+  expect(chess.getValidMoves([0, 3])).toContainEqual([1, 3]);
+  expect(chess.getValidMoves([0, 2])).toContainEqual([1, 3]);
 });
 
 test("Simple check", () => {
