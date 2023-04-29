@@ -58,6 +58,7 @@ function App() {
             key={stringId}
             onClick={onClickHandler}
             className={
+              "relative " +
               "h-full w-full" +
               " " +
               bg +
