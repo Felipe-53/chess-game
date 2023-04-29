@@ -8,6 +8,8 @@ import { Position } from "./types";
 test("Bishop", () => {
   let bishop = new Bishop("black");
 
+  expect(bishop.name).toBe("black-bishop");
+
   let paths = bishop.getPossiblePaths([0, 0]);
 
   let moves = [];
@@ -33,6 +35,8 @@ test("Bishop", () => {
 
 test("tower", () => {
   const tower = new Tower("white");
+
+  expect(tower.name).toBe("white-tower");
 
   let paths = tower.getPossiblePaths([0, 0]);
 

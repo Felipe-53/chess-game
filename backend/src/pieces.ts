@@ -21,7 +21,11 @@ import {
 import { Player, Position } from "./types";
 
 export abstract class Piece {
-  constructor(public player: Player) {}
+  public name: string;
+
+  constructor(public player: Player) {
+    this.name = `${player}-${this.constructor.name.toLowerCase()}`;
+  }
 
   abstract getPossiblePaths(
     from: Position
