@@ -1,6 +1,6 @@
 import { test, expect, describe, beforeEach } from "vitest";
 import { Board, Chess } from "./chess";
-import { Bishop, King, Knight, Pawn, Queen, Tower } from "./pieces";
+import { Bishop, King, Knight, Pawn, Queen, Rook } from "./pieces";
 import { Position } from "./types";
 
 let board: Board;
@@ -15,24 +15,24 @@ test("Can instantiate chess game", () => {
 });
 
 test("can get, retrieve and delete from Board", () => {
-  board.set([0, 0], new Tower("white"));
+  board.set([0, 0], new Rook("white"));
   expect(board.get([0, 0])).toBeTruthy();
   board.delete([0, 0]);
   expect(board.get([0, 0])).toBeFalsy();
 });
 
 test("Can instantiate a chess game with given initial state", () => {
-  board.set([0, 0], new Tower("white"));
+  board.set([0, 0], new Rook("white"));
 
   let chess = new Chess(board);
 
   expect(chess.getStates()[0]).toEqual(
-    new Board([[[0, 0], new Tower("white")]])
+    new Board([[[0, 0], new Rook("white")]])
   );
 });
 
-test("Can move a tower on an empty board", () => {
-  board.set([0, 0], new Tower("white"));
+test("Can move a rook on an empty board", () => {
+  board.set([0, 0], new Rook("white"));
   // TODO: if king is not added, test fail because of failure
   // to verify check condition
   board.set([5, 5], new King("black"));
@@ -43,14 +43,14 @@ test("Can move a tower on an empty board", () => {
 
   expect(chess.getStates()[1]).toEqual(
     new Board([
-      [[0, 7], new Tower("white")],
+      [[0, 7], new Rook("white")],
       [[5, 5], new King("black")],
     ])
   );
 });
 
-test("Cannot move a constrained tower", () => {
-  board.set([0, 0], new Tower("white"));
+test("Cannot move a constrained rook", () => {
+  board.set([0, 0], new Rook("white"));
 
   board.set([1, 0], new Bishop("white"));
   board.set([0, 1], new Bishop("white"));
@@ -181,7 +181,7 @@ test("All player's piece positions", () => {
 
 test("Simple check", () => {
   board.set([0, 0], new King("black"));
-  board.set([7, 7], new Tower("white"));
+  board.set([7, 7], new Rook("white"));
 
   const chess = new Chess(board);
 
@@ -192,8 +192,8 @@ test("Simple check", () => {
 
 test("Simple checkmate", () => {
   board.set([0, 0], new King("black"));
-  board.set([7, 0], new Tower("white"));
-  board.set([0, 7], new Tower("white"));
+  board.set([7, 0], new Rook("white"));
+  board.set([0, 7], new Rook("white"));
   board.set([7, 5], new Bishop("white"));
 
   const chess = new Chess(board);

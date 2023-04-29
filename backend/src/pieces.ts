@@ -64,7 +64,7 @@ export abstract class Piece {
   }
 }
 
-export class Tower extends Piece {
+export class Rook extends Piece {
   constructor(public player: Player) {
     super(player);
   }

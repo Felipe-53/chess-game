@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { Bishop, King, Tower } from "./pieces";
+import { Bishop, King, Rook } from "./pieces";
 import { Position } from "./types";
 
 // TODO: some wisdom: testing the individual paths makes more sense
@@ -33,12 +33,12 @@ test("Bishop", () => {
   expect(diagonal.length).toBe(moves.length);
 });
 
-test("tower", () => {
-  const tower = new Tower("white");
+test("rook", () => {
+  const rook = new Rook("white");
 
-  expect(tower.name).toBe("white-tower");
+  expect(rook.name).toBe("white-rook");
 
-  let paths = tower.getPossiblePaths([0, 0]);
+  let paths = rook.getPossiblePaths([0, 0]);
 
   let moves = [];
   for (const path of paths) {
@@ -65,7 +65,7 @@ test("tower", () => {
     moves.some((move) => move.toString() === [1, 1].toString())
   ).toBeFalsy();
 
-  paths = tower.getPossiblePaths([4, 4]);
+  paths = rook.getPossiblePaths([4, 4]);
 
   moves = [];
   for (const path of paths) {

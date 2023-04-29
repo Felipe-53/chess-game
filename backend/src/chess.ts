@@ -1,4 +1,4 @@
-import { Pawn, Piece, King, Knight, Bishop, Queen, Tower } from "./pieces";
+import { Pawn, Piece, King, Knight, Bishop, Queen, Rook } from "./pieces";
 import { Player, Position } from "./types";
 
 export class Chess {
@@ -138,23 +138,23 @@ export class Board {
       board.set([6, i], new Pawn("white"));
     }
 
-    board.set([0, 0], new Tower("black"));
+    board.set([0, 0], new Rook("black"));
     board.set([0, 1], new Knight("black"));
     board.set([0, 2], new Bishop("black"));
     board.set([0, 3], new Queen("black"));
     board.set([0, 4], new King("black"));
     board.set([0, 5], new Bishop("black"));
     board.set([0, 6], new Knight("black"));
-    board.set([0, 7], new Tower("black"));
+    board.set([0, 7], new Rook("black"));
 
-    board.set([7, 0], new Tower("white"));
+    board.set([7, 0], new Rook("white"));
     board.set([7, 1], new Knight("white"));
     board.set([7, 2], new Bishop("white"));
     board.set([7, 3], new Queen("white"));
     board.set([7, 4], new King("white"));
     board.set([7, 5], new Bishop("white"));
     board.set([7, 6], new Knight("white"));
-    board.set([7, 7], new Tower("white"));
+    board.set([7, 7], new Rook("white"));
 
     return board;
   }
