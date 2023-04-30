@@ -66,20 +66,15 @@ export class Chess {
   getValidMoves(from: Position) {
     const movingPiece = this.board.get(from);
     if (!movingPiece) throw Error("No piece on position");
-
     if (movingPiece.player !== this.turn) throw Error("Not on player's turn");
 
-    let validPieceMoves = movingPiece.getPossibleMoves(from, this.board);
-
-    for (const position of validPieceMoves) {
-      const chessCopy = this.deepCopy();
-      chessCopy.move(from, position);
-      if (chessCopy.isKingThreatened(this.turn)) {
-        validPieceMoves = validPieceMoves.filter((move) => {
-          return move.toString() !== position.toString();
-        });
-      }
-    }
+    const validPieceMoves = movingPiece
+      .getPossibleMoves(from, this.board)
+      .filter((position) => {
+        const chessCopy = this.deepCopy();
+        chessCopy.move(from, position);
+        return !chessCopy.isKingThreatened(this.turn);
+      });
 
     return validPieceMoves;
   }
