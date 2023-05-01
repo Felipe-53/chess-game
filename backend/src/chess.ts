@@ -80,7 +80,11 @@ export class Chess {
   }
 
   isKingThreatened(player: Player) {
-    const king = this.board.getKingPosition(player)!;
+    const king = this.board.getKingPosition(player);
+    if (!king) {
+      throw Error(`King '${player}' not present on the board`);
+    }
+
     const opposingPlayerPiecesPositions = this.board.getPlayerPiecesPositions(
       player === "white" ? "black" : "white"
     );
