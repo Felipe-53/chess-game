@@ -1,7 +1,9 @@
 import { test, expect, describe, beforeEach } from "vitest";
-import { Board, Chess } from "./chess";
+import { Chess } from "./chess";
+
 import { Bishop, King, Knight, Pawn, Queen, Rook } from "./pieces";
 import { Position } from "./types";
+import { Board } from "./board";
 
 let board: Board;
 
