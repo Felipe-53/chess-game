@@ -39,11 +39,24 @@ export class Chess {
       .getPossibleMoves(from, this.board)
       .filter((position) => {
         const chessCopy = this.deepCopy();
-        chessCopy.move(from, position);
+        chessCopy.dummyMove(from, position);
         return !chessCopy.isKingThreatened(this.turn);
       });
 
     return validPieceMoves;
+  }
+
+  // TODO: properly name the "move" functions and remove code duplication
+  private dummyMove(from: Position, to: Position) {
+    const piece = this.board.get(from);
+    if (!piece) {
+      throw Error("No piece to move");
+    }
+
+    this.board.delete(from);
+    this.board.set(to, piece);
+
+    this.turn = this.turn === "white" ? "black" : "white";
   }
 
   move(from: Position, to: Position) {
