@@ -14,16 +14,36 @@ export class Chess {
     this.chessCondition = "normal";
   }
 
-  getChessCondition(): ChessCondition {
-    return this.chessCondition;
+  getTurn() {
+    return this.turn;
   }
 
   getBoard() {
     return this.board;
   }
 
-  getTurn() {
-    return this.turn;
+  getStates() {
+    return this.states;
+  }
+
+  getChessCondition(): ChessCondition {
+    return this.chessCondition;
+  }
+
+  getValidMoves(from: Position) {
+    const movingPiece = this.board.get(from);
+    if (!movingPiece) throw Error("No piece on position");
+    if (movingPiece.player !== this.turn) throw Error("Not on player's turn");
+
+    const validPieceMoves = movingPiece
+      .getPossibleMoves(from, this.board)
+      .filter((position) => {
+        const chessCopy = this.deepCopy();
+        chessCopy.move(from, position);
+        return !chessCopy.isKingThreatened(this.turn);
+      });
+
+    return validPieceMoves;
   }
 
   move(from: Position, to: Position) {
@@ -66,22 +86,6 @@ export class Chess {
     return "check";
   }
 
-  getValidMoves(from: Position) {
-    const movingPiece = this.board.get(from);
-    if (!movingPiece) throw Error("No piece on position");
-    if (movingPiece.player !== this.turn) throw Error("Not on player's turn");
-
-    const validPieceMoves = movingPiece
-      .getPossibleMoves(from, this.board)
-      .filter((position) => {
-        const chessCopy = this.deepCopy();
-        chessCopy.move(from, position);
-        return !chessCopy.isKingThreatened(this.turn);
-      });
-
-    return validPieceMoves;
-  }
-
   isKingThreatened(player: Player) {
     const kingPosition = this.board.getKingPosition(player);
     if (!kingPosition) {
@@ -114,9 +118,5 @@ export class Chess {
     const chessCopy = new Chess(boardCopy);
     chessCopy.turn = this.turn;
     return chessCopy;
-  }
-
-  getStates() {
-    return this.states;
   }
 }
