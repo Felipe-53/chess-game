@@ -41,7 +41,7 @@ function App() {
         }
 
         function onClickHandler() {
-          if (chess.isCheckmate) return;
+          if (chess.getChessCondition() === "checkmate") return;
 
           if (piece && !possibleMove) {
             return setSelectedPiece([i, j]);
