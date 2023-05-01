@@ -19,7 +19,14 @@ function App() {
     if (selectedPiece) {
       try {
         possibleMoves = chess.getValidMoves(selectedPiece);
-      } catch {}
+        if (isDevelopment()) {
+          console.log(possibleMoves);
+        }
+      } catch (err) {
+        if (isDevelopment()) {
+          console.log(err);
+        }
+      }
     }
 
     let color = false;
@@ -82,6 +89,16 @@ function App() {
       <div className="chess-board">{tiles()}</div>
     </div>
   );
+}
+
+function isDevelopment() {
+  const origin = window.location.origin;
+
+  if (origin.includes("localhost") || origin.includes("127.0.0.1")) {
+    return true;
+  }
+
+  return false;
 }
 
 export default App;
