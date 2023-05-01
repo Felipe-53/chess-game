@@ -61,3 +61,7 @@ This concept is specially useful for the king because the two MAJOR rules of the
 2. If you king is threatened (and you turn to play, of couse, see tule #1), the only _valid moves_ are the ones that will make this condition disappear. If no such _move_ exists, you loose the game.
 
 In other words, you CANNOT put your king in a **doomed** position, meaning is it threatened and it is the opposing player's turn. The game is won by bringing the board to a configuration such no matter what move you make, yot king WOULD be _doomed_ in the next turn.
+
+**possible move**: One of the movements a piece is capable of without considering the _chess condition_.
+
+**valid move**: One of the movements a piece is capable of that DOES NOT make the player's king to be threatened.
