@@ -80,8 +80,8 @@ export class Chess {
   }
 
   isKingThreatened(player: Player) {
-    const king = this.board.getKingPosition(player);
-    if (!king) {
+    const kingPosition = this.board.getKingPosition(player);
+    if (!kingPosition) {
       throw Error(`King '${player}' not present on the board`);
     }
 
@@ -91,9 +91,13 @@ export class Chess {
 
     for (const piecePosition of opposingPlayerPiecesPositions) {
       const piece = this.board.get(piecePosition)!;
-      const pieceValidMoves = piece.getPossibleMoves(piecePosition, this.board);
-      for (const move of pieceValidMoves) {
-        if (move.toString() == king.toString()) {
+      const piecePossibleMoves = piece.getPossibleMoves(
+        piecePosition,
+        this.board
+      );
+
+      for (const move of piecePossibleMoves) {
+        if (move.toString() == kingPosition.toString()) {
           return true;
         }
       }
