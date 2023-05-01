@@ -203,7 +203,7 @@ test("Simple check", () => {
 
   chess.move([7, 7], [7, 0]);
 
-  expect(chess.isCheck).toBe(true);
+  expect(chess.getChessCondition()).toBe("check");
 });
 
 test("Simple checkmate", () => {
@@ -219,7 +219,7 @@ test("Simple checkmate", () => {
 
   chess.move([7, 5], [6, 6]);
 
-  expect(chess.isCheckmate).toBe(true);
+  expect(chess.getChessCondition()).toBe("checkmate");
 });
 
 test("king threatened", () => {

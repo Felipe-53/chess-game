@@ -1,19 +1,21 @@
-import { Player, Position } from "./types";
+import { ChessCondition, Player, Position } from "./types";
 import { Board } from "./board";
 
 export class Chess {
   private board: Board;
   private turn: Player;
   private states: Board[];
-  public isCheck: boolean;
-  public isCheckmate: boolean;
+  private chessCondition: ChessCondition;
 
   constructor(board?: Board) {
     board ? (this.board = board) : (this.board = Board.new());
     this.turn = "white";
     this.states = [structuredClone(this.board)];
-    this.isCheck = false;
-    this.isCheckmate = false;
+    this.chessCondition = "normal";
+  }
+
+  getChessCondition(): ChessCondition {
+    return this.chessCondition;
   }
 
   getBoard() {
@@ -35,18 +37,17 @@ export class Chess {
 
     this.turn = this.turn === "white" ? "black" : "white";
 
-    const { check, checkmate } = this.check();
-    (this.isCheck = check), (this.isCheckmate = checkmate);
+    this.chessCondition = this.determineChessCondition();
 
     this.states.push(structuredClone(this.board));
   }
 
-  check() {
+  determineChessCondition(): ChessCondition {
     let check = this.isKingThreatened(this.turn);
-    let checkmate = false;
+    if (!check) return "normal";
 
     if (check) {
-      checkmate = true;
+      let checkmate = true;
 
       const currentPlayerPiecesPositions = this.board.getPlayerPiecesPositions(
         this.turn
@@ -58,9 +59,11 @@ export class Chess {
           break;
         }
       }
+
+      if (checkmate) return "checkmate";
     }
 
-    return { check, checkmate };
+    return "check";
   }
 
   getValidMoves(from: Position) {
