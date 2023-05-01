@@ -1,4 +1,4 @@
-import { Board } from "./chess";
+import { Board } from "./board";
 import {
   down,
   downOne,
