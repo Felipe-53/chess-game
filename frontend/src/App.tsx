@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Chess } from "../../backend/src/chess";
 import { Piece } from "./components/Piece";
 import { Position } from "./types";
