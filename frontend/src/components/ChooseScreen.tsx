@@ -8,7 +8,7 @@ interface Props {
 
 const ChooseScreen: React.FC<Props> = ({ setScreen }) => {
   return (
-    <div className="bg-black h-screen flex flex-col items-center justify-center p-10 gap-10 mx-auto w-full">
+    <div className="bg-black my-auto absolute inset-0 flex flex-col items-center justify-center p-10 gap-10 mx-auto w-full">
       <h1 className="text-5xl font-bold text-gray-100">Build or Play</h1>
 
       <div className="flex justify-around w-72">
