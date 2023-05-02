@@ -14,10 +14,18 @@ import blackPawn from "../assets/svg/black-pawn.svg";
 
 interface Props {
   name: string;
+  onDragHandler?: (name: string) => void;
 }
 
-export const Piece: React.FC<Props> = ({ name }) => {
-  return <img width={50} src={pieceSvgMap[name]} />;
+export const Piece: React.FC<Props> = ({ name, onDragHandler }) => {
+  return (
+    <img
+      draggable={true}
+      onDrag={onDragHandler ? () => onDragHandler(name) : undefined}
+      width={50}
+      src={pieceSvgMap[name]}
+    />
+  );
 };
 
 const pieceSvgMap: Record<string, string> = {

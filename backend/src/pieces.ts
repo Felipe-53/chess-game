@@ -214,3 +214,18 @@ export class Pawn extends Piece {
     return false;
   }
 }
+
+export const pieceNameMap: Record<string, Piece> = {
+  "white-pawn": new Pawn("white"),
+  "white-rook": new Rook("white"),
+  "white-knight": new Knight("white"),
+  "white-bishop": new Bishop("white"),
+  "white-queen": new Queen("white"),
+  "white-king": new King("white"),
+  "black-pawn": new Pawn("black"),
+  "black-rook": new Rook("black"),
+  "black-knight": new Knight("black"),
+  "black-bishop": new Bishop("black"),
+  "black-queen": new Queen("black"),
+  "black-king": new King("black"),
+};
