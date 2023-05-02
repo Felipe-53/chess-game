@@ -49,11 +49,11 @@ const BuildBoard: React.FC<Props> = ({ board, play }) => {
 
   return (
     <div className="h-screen bg-slate-600  flex flex-col items-center gap-4 p-4">
-      <button className="bg-yellow-400 w-32" onClick={play}>
+      <button className="btn btn-warning w-32" onClick={play}>
         PLAY
       </button>
 
-      <div className=" flex justify-center gap-10 items-center">
+      <div className="flex justify-center gap-10 items-center">
         <div className="flex flex-col gap-4">
           <Piece onDragHandler={setSelectedPiece} name="white-pawn" />
           <Piece onDragHandler={setSelectedPiece} name="white-king" />
