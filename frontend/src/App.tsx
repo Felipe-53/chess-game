@@ -3,26 +3,13 @@ import ChessGame from "./components/ChessGame";
 import { Board } from "../../backend/src/board";
 import { BuildBoard } from "./components/BuildBoard";
 import { Chess } from "../../backend/src/chess";
-
-type Screen = "build" | "play-new" | "play-built";
+import ChooseScreen from "./components/ChooseScreen";
+import { Screen } from "./components/ChooseScreen";
 
 const board = new Board();
 
 const App = () => {
   const [screen, setScreen] = useState<Screen | null>(null);
-
-  function ChooseScreen() {
-    return (
-      <div className="flex flex-col items-center mt-10 gap-10">
-        <h1 className="font-bold text-3xl">Build or Play</h1>
-
-        <div className="flex justify-around w-72">
-          <button onClick={() => setScreen("build")}>Build</button>
-          <button onClick={() => setScreen("play-new")}>Play</button>
-        </div>
-      </div>
-    );
-  }
 
   const map = {
     build: <BuildBoard board={board} play={() => setScreen("play-built")} />,
@@ -30,7 +17,7 @@ const App = () => {
     "play-built": <ChessGame chess={new Chess(board)} />,
   };
 
-  return screen ? map[screen] : <ChooseScreen />;
+  return screen ? map[screen] : <ChooseScreen setScreen={setScreen} />;
 };
 
 export default App;
