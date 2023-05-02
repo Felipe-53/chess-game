@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Board } from "../../../backend/src/board";
 import { Piece } from "./Piece";
 import { pieceNameMap } from "../../../backend/src/pieces";
+import PieceChooser from "./PieceChooser";
 
 interface Props {
   board: Board;
@@ -48,32 +49,18 @@ const BuildBoard: React.FC<Props> = ({ board, play }) => {
   }
 
   return (
-    <div className="h-screen bg-slate-600  flex flex-col items-center gap-4 p-4">
-      <button className="btn btn-warning w-32" onClick={play}>
-        PLAY
-      </button>
-
+    <div className="bg-black absolute inset-0 flex flex-col items-center gap-12 p-4">
       <div className="flex justify-center gap-10 items-center">
-        <div className="flex flex-col gap-4">
-          <Piece onDragHandler={setSelectedPiece} name="white-pawn" />
-          <Piece onDragHandler={setSelectedPiece} name="white-king" />
-          <Piece onDragHandler={setSelectedPiece} name="white-queen" />
-          <Piece onDragHandler={setSelectedPiece} name="white-bishop" />
-          <Piece onDragHandler={setSelectedPiece} name="white-knight" />
-          <Piece onDragHandler={setSelectedPiece} name="white-rook" />
-        </div>
+        <PieceChooser color="white" setSelectedPiece={setSelectedPiece} />
 
         <div className="chess-board">{boardElements}</div>
 
-        <div className="flex flex-col gap-4">
-          <Piece onDragHandler={setSelectedPiece} name="black-pawn" />
-          <Piece onDragHandler={setSelectedPiece} name="black-king" />
-          <Piece onDragHandler={setSelectedPiece} name="black-queen" />
-          <Piece onDragHandler={setSelectedPiece} name="black-bishop" />
-          <Piece onDragHandler={setSelectedPiece} name="black-knight" />
-          <Piece onDragHandler={setSelectedPiece} name="black-rook" />
-        </div>
+        <PieceChooser color="black" setSelectedPiece={setSelectedPiece} />
       </div>
+
+      <button className="btn btn-warning w-32" onClick={play}>
+        PLAY
+      </button>
     </div>
   );
 };
