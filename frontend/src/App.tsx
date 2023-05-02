@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useState, useRef } from "react";
 import { Chess } from "../../backend/src/chess";
 import { Piece } from "./components/Piece";
 import { Position } from "./types";
@@ -9,84 +8,64 @@ const chess = new Chess();
 function App() {
   const [selectedPiece, setSelectedPiece] = useState<Position | null>(null);
 
-  function tiles() {
-    const indexes = [0, 1, 2, 3, 4, 5, 6, 7];
-    const arr = [];
+  const board = chess.getBoard();
+  const boardElements: JSX.Element[] = [];
 
-    const board = chess.getBoard();
+  const validPieceMoves = getValidPieceMoves(selectedPiece);
 
-    let possibleMoves: Position[] = [];
-    if (selectedPiece) {
-      try {
-        possibleMoves = chess.getValidMoves(selectedPiece);
-        if (isDevelopment()) {
-          console.log(possibleMoves);
+  let color = false;
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 8; j++) {
+      const piece = board.get([i, j]);
+
+      const isValidMove = validPieceMoves.find((position) => {
+        if (position.toString() === [i, j].toString()) return true;
+      });
+
+      let bg: string;
+      if (isValidMove) {
+        bg = "bg-yellow-400";
+      } else {
+        bg = color ? "bg-amber-900" : "bg-stone-500";
+      }
+
+      function onClickHandler() {
+        if (chess.getChessCondition() === "checkmate") return;
+
+        if (piece && !isValidMove) {
+          return setSelectedPiece([i, j]);
         }
-      } catch (err) {
-        if (isDevelopment()) {
-          console.log(err);
+
+        if (isValidMove) {
+          chess.move(selectedPiece!, [i, j]);
+          setSelectedPiece(null);
         }
       }
-    }
 
-    let color = false;
-    for (const i of indexes) {
-      for (const j of indexes) {
-        const stringId = i.toString() + j.toString();
-
-        const piece = board.get([i, j]);
-
-        const possibleMove = possibleMoves.find((position) => {
-          if (position.toString() === [i, j].toString()) return true;
-        });
-
-        let bg: string;
-        if (possibleMove) {
-          bg = "bg-yellow-400";
-        } else {
-          bg = color ? "bg-amber-900" : "bg-stone-500";
-        }
-
-        function onClickHandler() {
-          if (chess.getChessCondition() === "checkmate") return;
-
-          if (piece && !possibleMove) {
-            return setSelectedPiece([i, j]);
+      boardElements.push(
+        <div
+          key={[i, j].toString()}
+          onClick={onClickHandler}
+          className={
+            "relative " +
+            "h-full w-full" +
+            " " +
+            bg +
+            " " +
+            "flex items-center justify-center"
           }
-
-          if (possibleMove) {
-            chess.move(selectedPiece!, [i, j]);
-            setSelectedPiece(null);
-          }
-        }
-
-        arr.push(
-          <div
-            key={stringId}
-            onClick={onClickHandler}
-            className={
-              "relative " +
-              "h-full w-full" +
-              " " +
-              bg +
-              " " +
-              "flex items-center justify-center"
-            }
-          >
-            {piece ? <Piece name={piece.name} /> : null}
-          </div>
-        );
-        color = !color;
-      }
+        >
+          {piece ? <Piece name={piece.name} /> : null}
+        </div>
+      );
       color = !color;
     }
-
-    return arr;
+    color = !color;
   }
 
   return (
     <div className="h-screen bg-black flex justify-center items-center">
-      <div className="chess-board">{tiles()}</div>
+      <div className="chess-board">{boardElements}</div>
     </div>
   );
 }
@@ -99,6 +78,25 @@ function isDevelopment() {
   }
 
   return false;
+}
+
+function getValidPieceMoves(selectedPiece: Position | null) {
+  let validPieceMoves: Position[] = [];
+
+  if (selectedPiece) {
+    try {
+      validPieceMoves = chess.getValidMoves(selectedPiece);
+      if (isDevelopment()) {
+        console.log(validPieceMoves);
+      }
+    } catch (err) {
+      if (isDevelopment()) {
+        console.log(err);
+      }
+    }
+  }
+
+  return validPieceMoves;
 }
 
 export default App;
