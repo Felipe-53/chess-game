@@ -66,7 +66,7 @@ const ChessGame: React.FC<Props> = ({ chess }) => {
   }
 
   return (
-    <div className="py-10 absolute inset-0 bg-black flex justify-center items-center">
+    <div className="py-4 absolute inset-0 bg-black flex justify-center items-center overflow-auto">
       <div className="chess-board">{boardElements}</div>
     </div>
   );

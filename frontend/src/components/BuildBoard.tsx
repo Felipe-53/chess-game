@@ -49,7 +49,7 @@ const BuildBoard: React.FC<Props> = ({ board, play }) => {
   }
 
   return (
-    <div className="bg-black absolute inset-0 flex flex-col items-center gap-12 p-4">
+    <div className="bg-black absolute inset-0 flex flex-col items-center gap-12 py-4 pb-6 overflow-auto">
       <div className="flex justify-center gap-10 items-center">
         <PieceChooser color="white" setSelectedPiece={setSelectedPiece} />
 
