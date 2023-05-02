@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+img {
+  max-width: unset;
+  height: auto;
+}
 .chess-board {
   display: grid;
   grid-template-columns: repeat(8, 75px);
