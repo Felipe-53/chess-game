@@ -7,13 +7,17 @@ interface Props {
 }
 
 const ChooseScreen: React.FC<Props> = ({ setScreen }) => {
-  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (window.innerWidth < 768) {
       setIsMobile(true);
+    } else {
+      setIsMobile(false);
     }
   }, []);
+
+  if (isMobile === null) return null;
 
   return (
     <div className="bg-black my-auto absolute inset-0 flex flex-col items-center justify-center p-10 gap-10 mx-auto w-full">
