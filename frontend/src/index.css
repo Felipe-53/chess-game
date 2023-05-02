@@ -11,3 +11,10 @@ img {
   grid-template-columns: repeat(8, 75px);
   grid-template-rows: repeat(8, 75px);
 }
+
+@media (max-width: 768px) {
+  .chess-board {
+    grid-template-columns: repeat(8, calc(100vw / 8));
+    grid-template-rows: repeat(8, calc(100vw / 8));
+  }
+}
