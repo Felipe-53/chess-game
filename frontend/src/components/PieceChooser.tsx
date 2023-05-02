@@ -22,7 +22,7 @@ const PieceChooser: React.FC<Props> = ({ color, setSelectedPiece }) => {
     );
   });
 
-  return <div className="flex flex-col gap-5">{pieceElements}</div>;
+  return <div className="flex lg:flex-col lg:gap-5 gap-2">{pieceElements}</div>;
 };
 
 export default PieceChooser;
