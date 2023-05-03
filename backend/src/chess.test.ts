@@ -41,7 +41,7 @@ test("Can move a rook on an empty board", () => {
 
   let chess = new Chess(board);
 
-  chess.move([0, 0], [0, 7]);
+  chess.performPlayerMove([0, 0], [0, 7]);
 
   expect(chess.getStates()[1]).toEqual(
     new Board([
@@ -184,11 +184,11 @@ test("All player's piece positions", () => {
 test("check", () => {
   const chess = new Chess();
   expect(chess.getValidMoves([6, 4])).toContainEqual([4, 4]);
-  chess.move([6, 4], [4, 4]);
+  chess.performPlayerMove([6, 4], [4, 4]);
   expect(chess.getValidMoves([1, 3])).toContainEqual([2, 3]);
-  chess.move([1, 3], [2, 3]);
+  chess.performPlayerMove([1, 3], [2, 3]);
   expect(chess.getValidMoves([7, 5])).toContainEqual([3, 1]);
-  chess.move([7, 5], [3, 1]);
+  chess.performPlayerMove([7, 5], [3, 1]);
   expect(chess.getValidMoves([0, 4])).not.toContainEqual([1, 3]);
   expect(chess.getValidMoves([0, 3])).toContainEqual([1, 3]);
   expect(chess.getValidMoves([0, 2])).toContainEqual([1, 3]);
@@ -201,7 +201,7 @@ test("Simple check", () => {
 
   const chess = new Chess(board);
 
-  chess.move([7, 7], [7, 0]);
+  chess.performPlayerMove([7, 7], [7, 0]);
 
   expect(chess.getChessCondition()).toBe("check");
 });
@@ -217,7 +217,7 @@ test("Simple checkmate", () => {
 
   const chess = new Chess(board);
 
-  chess.move([7, 5], [6, 6]);
+  chess.performPlayerMove([7, 5], [6, 6]);
 
   expect(chess.getChessCondition()).toBe("checkmate");
 });
@@ -231,16 +231,16 @@ test("king threatened", () => {
 
   expect(chess.isKingThreatened("black")).toBe(true);
 
-  chess.move([7, 0], [7, 7]);
+  chess.performPlayerMove([7, 0], [7, 7]);
 
   expect(chess.isKingThreatened("black")).toBe(false);
 
   expect(chess.getValidMoves([0, 0])).toContainEqual([1, 0]);
-  chess.move([0, 0], [1, 1]);
+  chess.performPlayerMove([0, 0], [1, 1]);
 
   expect(chess.isKingThreatened("black")).toBe(false);
 
-  chess.move([7, 7], [7, 1]);
+  chess.performPlayerMove([7, 7], [7, 1]);
 
   expect(chess.isKingThreatened("black")).toBe(true);
 });
