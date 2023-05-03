@@ -39,7 +39,7 @@ const ChessGame: React.FC<Props> = ({ chess }) => {
         }
 
         if (isValidMove) {
-          chess.move(selectedPiece!, [i, j]);
+          chess.performPlayerMove(selectedPiece!, [i, j]);
           setSelectedPiece(null);
         }
       }
