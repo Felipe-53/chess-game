@@ -46,7 +46,21 @@ export class Chess {
     return validPieceMoves;
   }
 
-  // TODO: properly name the "move" functions and remove code duplication
+  performPlayerMove(from: Position, to: Position) {
+    const piece = this.board.get(from);
+    if (!piece) {
+      throw Error("No piece to move");
+    }
+
+    this.movePiece(from, to);
+
+    this.turn = this.turn === "white" ? "black" : "white";
+
+    this.chessCondition = this.determineChessCondition();
+
+    this.states.push(structuredClone(this.board));
+  }
+
   private movePiece(from: Position, to: Position) {
     const piece = this.board.get(from);
     if (!piece) {
@@ -55,24 +69,6 @@ export class Chess {
 
     this.board.delete(from);
     this.board.set(to, piece);
-
-    this.turn = this.turn === "white" ? "black" : "white";
-  }
-
-  performPlayerMove(from: Position, to: Position) {
-    const piece = this.board.get(from);
-    if (!piece) {
-      throw Error("No piece to move");
-    }
-
-    this.board.delete(from);
-    this.board.set(to, piece);
-
-    this.turn = this.turn === "white" ? "black" : "white";
-
-    this.chessCondition = this.determineChessCondition();
-
-    this.states.push(structuredClone(this.board));
   }
 
   determineChessCondition(): ChessCondition {
