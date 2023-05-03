@@ -24,7 +24,7 @@ export abstract class Piece {
   public name: string;
 
   constructor(public player: Player) {
-    this.name = `${player}-${this.constructor.name.toLowerCase()}`;
+    this.name = `${player}-piece`;
   }
 
   abstract getPossiblePaths(
@@ -67,6 +67,7 @@ export abstract class Piece {
 export class Rook extends Piece {
   constructor(public player: Player) {
     super(player);
+    this.name = `${player}-rook`;
   }
 
   getPossiblePaths(from: Position) {
@@ -78,6 +79,7 @@ export class Rook extends Piece {
 export class Knight extends Piece {
   constructor(public player: Player) {
     super(player);
+    this.name = `${player}-knight`;
   }
 
   getPossiblePaths(from: Position) {
@@ -89,6 +91,7 @@ export class Knight extends Piece {
 export class Bishop extends Piece {
   constructor(public player: Player) {
     super(player);
+    this.name = `${player}-bishop`;
   }
 
   getPossiblePaths(from: Position) {
@@ -105,6 +108,7 @@ export class Bishop extends Piece {
 export class Queen extends Piece {
   constructor(public player: Player) {
     super(player);
+    this.name = `${player}-queen`;
   }
 
   getPossiblePaths(from: Position) {
@@ -125,6 +129,7 @@ export class Queen extends Piece {
 export class King extends Piece {
   constructor(public player: Player) {
     super(player);
+    this.name = `${player}-king`;
   }
 
   getPossiblePaths(from: Position) {
@@ -145,6 +150,7 @@ export class King extends Piece {
 export class Pawn extends Piece {
   constructor(public player: Player) {
     super(player);
+    this.name = `${player}-pawn`;
   }
 
   getPossiblePaths(from: Position) {
