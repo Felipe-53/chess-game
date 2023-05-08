@@ -1,3 +1,37 @@
+# Glossary
+
+### The language that describes the system
+
+In order to successfully design and implement the business rules of a system, we need a rigorous and clearly defined language that elegantly describes it. What follows is the language used in this project.
+
+The terms the appear in the **source code** have their meaning precisely (to my best effort) defined here.
+
+**position**: a pair of coordinates defining a piece's position on the board.
+
+**move**: one of the possible ways a piece can switch its position on the board. A _capture_ is also a _move_.
+
+**path**: a set of adjacent board positions that has a 1-square width. Think about the diagonals of a bishop or the straight lines of a rook. The concept of _path_ is used to describe the ways in which a piece can move.
+
+**capture**: when one of the opponents pieces are taken by means of making a move such that this piece new position is the same as the opponent's one. In such case, the opponent piece is removed from the game.
+
+**(to be) Threatened (a piece)**: referring to a single piece on the board, it is a condition in which there exists at least one opponent piece's **move** such that if this move were performed it would result in the piece being captured.
+
+This concept is specially useful for the **king** because the two MAJOR rules of the chess are defined is terms of it.
+
+1. You cannot make a move that will make you king _threatened_ (in this case **doomed** actually, because it's the opponent's turn to play).
+
+2. If you king is threatened and it's you turn to play (_check_ condition), the only _valid moves_ are the ones that will make this condition disappear. If no such _move_ exists, you loose the game (_checkmate_).
+
+In other words, you CANNOT put your king in a **doomed** position, meaning is it threatened and it is the opposing player's turn. The game is won by bringing the board to a configuration such no matter what move you make, yot king WOULD be _doomed_ in the next turn.
+
+**chess condition**: either _normal_, _check_, or _checkmate_.
+
+**possible move**: one of the movements a piece is capable of without considering the _chess condition_.
+
+**valid move**: One of the movements a piece is capable of that DOES NOT make the player's king to be threatened.
+
+**state**: a particular arrangement of pieces on the board is called a _state_.
+
 # Implementation notes
 
 The following is the notes I took while implementing the program. They serve the purpose of building a mental model of the system and guide its development.
@@ -18,7 +52,7 @@ The game is played with players alternating turns.
 
 ### Moves
 
-Each piece has a specific set of rules for moving.
+Each piece has a specific set of rules for moving, that takes into consideration the board as well as the other pieces. The set of all the moves a piece is capable of considering those is called _possible moves_ (see Glossary).
 
 ### Capturing
 
@@ -43,25 +77,3 @@ The matrix approach would require an array of arrays. It would the elements woul
 #### 2. Sparse Data Structure
 
 Only the actual pieces are accounted for. A hashmap of coordinates (i, j) to pieces gives a full description of the board.
-
-### Glossary
-
-**position**: a pair of coordinates defining a piece's position on the board.
-
-**move**: one of the possible ways a piece can switch its position on the board. A _capture_ is also a _move_.
-
-**capture**: when one of the opponents pieces are taken by means of making a move such that this piece new position is the same as the opponent's one. In such case, the opponent piece is removed from the game.
-
-**(to be) Threatened (a piece)**: referring to a single piece on the board, it is a condition in which there exists an opponent piece's **move** such this move places this opponent's piece at the same spot as the one piece we're considering.
-
-This concept is specially useful for the king because the two MAJOR rules of the chess are defined is terms of it.
-
-1. You cannot make a move that will make you king _threatened_ (in this case **doomed** actually, because it's the opponent's turn to play).
-
-2. If you king is threatened (and you turn to play, of couse, see tule #1), the only _valid moves_ are the ones that will make this condition disappear. If no such _move_ exists, you loose the game.
-
-In other words, you CANNOT put your king in a **doomed** position, meaning is it threatened and it is the opposing player's turn. The game is won by bringing the board to a configuration such no matter what move you make, yot king WOULD be _doomed_ in the next turn.
-
-**possible move**: One of the movements a piece is capable of without considering the _chess condition_.
-
-**valid move**: One of the movements a piece is capable of that DOES NOT make the player's king to be threatened.
