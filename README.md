@@ -4,15 +4,15 @@
 
 In order to successfully design and implement the business rules of a system, we need a rigorous and clearly defined language that elegantly describes it. What follows is the language used in this project.
 
-The terms the appear in the **source code** have their meaning precisely (to my best effort) defined here.
+The terms that appear in the **source code** have their meaning precisely (to my best effort) defined here.
 
 **position**: a pair of coordinates defining a piece's position on the board.
 
 **move**: one of the possible ways a piece can switch its position on the board. A _capture_ is also a _move_.
 
-**path**: a set of adjacent board positions that has a 1-square width. Think about the diagonals of a bishop or the straight lines of a rook. The concept of _path_ is used to describe the ways in which a piece can move.
+**path**: a set of neighboring board positions that has a 1-square width. Think about the diagonals of a bishop or the straight lines of a rook. The concept of _path_ is used to describe the ways in which a piece can move.
 
-**capture**: when one of the opponents pieces are taken by means of making a move such that this piece new position is the same as the opponent's one. In such case, the opponent piece is removed from the game.
+**capture**: we say that a piece is captured when a move is made such that this piece's new position is the same some opponent's piece. In such case, the opponent's piece is removed from the game.
 
 **(to be) Threatened (a piece)**: referring to a single piece on the board, it is a condition in which there exists at least one opponent piece's **move** such that if this move were performed it would result in the piece being captured.
 
